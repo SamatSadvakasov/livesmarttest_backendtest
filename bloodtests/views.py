@@ -19,8 +19,9 @@ class TestDetails(APIView):
         return Response(serializer.data)
 
     def post(self, request, code, format=None):
+        print('TESTTTTTTTTTTT', request.data)
         serializer = TestSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
