@@ -24,3 +24,17 @@ class TestSerializer(serializers.ModelSerializer):
             if data['upper'] < data['lower']:
                 raise serializers.ValidationError({"Lower value can't exceed upper value": True})
         return data
+
+    def create(self, validated_data):
+        try:
+            # print('TTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSST', validated_data.get('code', None))
+            obj = Test.objects.get(code=validated_data.get('code', None))
+            obj.name = validated_data.get('name', None)
+            obj.unit = validated_data.get('unit', None)
+            obj.upper = validated_data.get('upper', None)
+            obj.lower = validated_data.get('lower', None)
+            obj.save()
+            return obj
+        except Test.DoesNotExist:
+            return Test.objects.create(**validated_data)
+
