@@ -16,3 +16,6 @@ class TestSerializer(serializers.ModelSerializer):
         elif instance.upper:
             representation['ideal_range'] = 'value <= ' + str(instance.upper)
         return representation
+
+    def validators(self):
+        pass
